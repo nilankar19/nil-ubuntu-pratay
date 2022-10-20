@@ -1,0 +1,62 @@
+sudo iwconfig 
+sudo iwconfig devicename power off
+ 
+
+
+
+https://help.ubuntu.com/community/WifiDocs/WirelessTroubleShootingGuide/Devices
+sudo apt-get install firmware-realtek      //installed the newest version
+ 
+antina pcking
+-------------
+sudo modprobe rtl8723be ant_sel=1
+and if your wifi doesn't work then, try:
+Code:
+sudo modprobe -r rtl8723be
+and then
+Code:
+sudo modprobe rtl8723be ant_sel=2
+and if either one of these works for you
+
+//
+That was not a permanent solution just a test to find out which antenna worked better if indeed you have two antennas - did both command work? if one does not then you only have one antenna if both work then you have two - once you set it to one or the other as discussed above - leave it that way for a while and see if you get kicked off or not - once you find out which works better then we have to make that one permanent
+
+To make permanent run
+Code:
+sudo tee /etc/modprobe.d/rtl8723be.conf <<< "options rtl8723be ant_sel=1"
+or
+Code:
+sudo tee /etc/modprobe.d/rtl8723be.conf <<< "options rtl8723be ant_sel=2"
+
+depending on which antenna is better if you only have one antenna this will not work
+
+
+best --------------- echo "options rtl8723be fwlps=0 swlps=0" | sudo tee /etc/modprobe.d/rtl8723be.conf
+
+
+
+
+
+modinfo rtl8723be
+-------------------
+filename:       /lib/modules/5.15.0-40-generic/kernel/drivers/net/wireless/realtek/rtlwifi/rtl8723be/rtl8723be.ko
+firmware:       rtlwifi/rtl8723befw_36.bin
+firmware:       rtlwifi/rtl8723befw.bin
+description:    Realtek 8723BE 802.11n PCI wireless
+license:        GPL
+author:         Realtek WlanFAE	<wlanfae@realtek.com>
+author:         PageHe	<page_he@realsil.com.cn>
+srcversion:     17AE822AE3E2EAA1A500831
+alias:          pci:v000010ECd0000B723sv*sd*bc*sc*i*
+depends:        rtlwifi,rtl8723-common,rtl_pci,btcoexist,mac80211
+retpoline:      Y
+intree:         Y
+name:           rtl8723be
+vermagic:       5.15.0-40-generic SMP mod_unload modversions 
+sig_id:         PKCS#7
+-----------------------------------------------------------------------------------------------------------------------------------
+systemctl restart NetworkManager
+sudo nano /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+set powersave = 2//disable ,3//enable
+
+

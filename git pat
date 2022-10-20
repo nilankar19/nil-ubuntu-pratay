@@ -1,0 +1,56 @@
+
+
+
+ghp_idU8mlIFG9hZ4hBwbHaPeOuLKAkBA009
+------------------------------------------------------------------------
+install 
+sudo apt install git
+mkdir testfolder
+cd testfolder
+git init
+git config --global user.name "nilakar19"
+git config --global user.email "nilankar19@gmail.com"
+git add index.html
+git commit -m "this is first commit" // -m for main //-a for --all
+git branch
+git branch newbranch//git branch -d  local_branch_name /--delete branch -d for delete and -D for forcefully delete
+git checkout newbranch 
+---------------------------------------------------------------------------
+git pat 7 days
+git rmdir              /-----remove dir
+git log --pretty oneline      /log in one line
+rm -fr .git         /remove git from directeries
+git checkout -b emergency-fix /create branch if not exist name emergency-fix
+git branch -d emergency-fix   /delete branch
+git merge emergency-fix /this branch merge with master after merge we delete emergency-fix branch
+
+remote========
+Try GIT Bash, use the following codes to upload the whole folder.
+
+Open Git Bash.
+cd projectname
+git init
+git remote add origin https://github.com/<username>/<repo>.git
+git remote -v (for checking current repository)
+git add -A (add all files)
+git commit -m 'Add files via upload'
+git pull --rebase origin master
+git push origin master
+//---------------------------------------------------------------
+git remote add origin git@github.com:YOUR-GIT/YOUR-REPO.git
+git remote add origin https://github.com/nilankar19/first.git
+git remote -v
+gti remote rm origin
+git remote  /now check whether your remote remote repository have been removed
+//---------------------------------------delete branch from remote via local
+git branch -d <branch-name> loca delete of branch
+
+
+git push --delete <remote name> <branch name>
+
+It’s like you’re pushing—sending—the order to delete the branch to the remote repository.
+/-----------------------------------------------------------------
+git push --set-upstream <repository> <branchname>
+git push -u origin master
+git push -u origin a-branch//git push remote_name -d remote_branch_name //delete branch remote // remote_name = origin
+git remote -v   /check your remote repositories with

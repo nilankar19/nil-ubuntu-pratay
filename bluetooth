@@ -12,7 +12,7 @@ sudo apt-get install -y bluetooth
  1358  sudo apt-get install -y bluetooth
  1359  sudo /etc/init.d/bluetooth start
 
-uninstall--------------------------------
+uninstall----------opps----------------------
 sudo apt-get purge blueman bluez-utils bluez bluetooth
 
 

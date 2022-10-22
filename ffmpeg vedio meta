@@ -1,0 +1,58 @@
+1--------Convert Media Files
+Another very useful way to use ffmpeg is for hassle-free conversion between different media formats. You only have to specify input and output files, since ffmpeg will get the required format from the file extensions. This works for video-to-video and audio-to-audio conversions.
+
+Here are some examples:
+
+ffmpeg -i video_input.mp4 video_output.avi 
+ffmpeg -i video_input.webm video_output.flv 
+ffmpeg -i audio_input.mp3 audio_output.ogg 
+ffmpeg -i audio_input.wav audio_output.flac
+You can even specify more output files:
+
+ffmpeg -i audio_input.wav audio_output_1.mp3 audio_output_2.ogg
+This will convert the input files to all specified formats.
+
+To see a list of all supported formats, use:
+
+ffmpeg -formats
+Again, you can add -hide_banner to omit information about the app.
+
+You can specify the -qscale 0 parameter before the output file to preserve the quality of a video file:
+
+ffmpeg -i video_input.wav -qscale 0 video_output.mp4
+Additionally, you could specify codecs you want to use, adding -c:a (for audio) and -c:v (for video) followed by the name of the codecs, or copy if you want to use the same codecs as the original file:
+
+ffmpeg -i video_input.mp4 -c:v copy -c:a libvorbis video_output.avi
+Note: this might make the file extension rather deceiving, so be careful
+------------------------------------------------------------------------------------------------------------------------------------------
+2-----------------Extract Audio from Video
+To extract audio from a video file, you do a simple conversion and add the -vn flag:
+
+ffmpeg -i video.mp4 -vn audio.mp3
+Note that this command will utilize the bit rate of the original file. It’s a good idea to set it yourself; you can use -ab (audio bit rate):
+
+ffmpeg -i video.mp4 -vn -ab 128k audio.mp3
+Some common bit rates are 96k, 128k, 192k, 256k, 320k (highest bitrate supported by mp3).
+
+Other common options are -ar (audio frequency: 22050, 441000, 48000), -ac (number of audio channels), -f (audio format, although normally automatically detected). -ab can also be replaced by -b:a. For example:
+
+ffmpeg -i video.mov -vn -ar 44100 -ac 2 -b:a 128k -f mp3 audio.mp3
+4. Mute Audio in Video
+Similar to the last task, to accomplish this we’ll add a simple tag: -an (instead of -vn).
+
+ffmpeg -i video_input.mp4 -an -video_output.mp4
+Note: The -an tag will render all audio options for that output file useless, since there will be no audio in the result of the operation.
+
+5. Extract Images from Video
+This might come in handy for a lot of people. For example, you might have a series of images (e.g. a slideshow) and you want to get all images out of that. Simply enter:
+
+ffmpeg -i video.mp4 -r 1 -f image2 image-%3d.png
+Let’s take that apart for a second.
+
+-r specifies the frame rate (how many frames are extracted into images in one second, default: 25), -f specifies the output format (image2 actually stands for image2 sequence.
+
+The last parameter (the output file) has a somewhat interesting naming: it uses %3d at the end. This simply numbers your images with 3 digits (000, 001, etc.). You can also use %2d (2 digit format) or even %4d (4 digit format) if you want. Feel free to experiment and use whatever works for you!
+
+Note: There is also a way to turn a set of images into a video/slideshow. I’ll cover that in the Advanced Usage section.
+
+
